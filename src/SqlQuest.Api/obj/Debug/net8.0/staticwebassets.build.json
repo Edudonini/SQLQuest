@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "5ok82+pvUk2UG70bSBHJ0lyYZrHQ5i4aSsZai7jidP8=",
+  "Source": "SqlQuest.Api",
+  "BasePath": "_content/SqlQuest.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
