@@ -191,3 +191,4 @@ C:\Workspace\Portfolio\SQLQuest\src\SqlQuest.Api\obj\Debug\net8.0\refint\SqlQues
 C:\Workspace\Portfolio\SQLQuest\src\SqlQuest.Api\obj\Debug\net8.0\SqlQuest.Api.pdb
 C:\Workspace\Portfolio\SQLQuest\src\SqlQuest.Api\obj\Debug\net8.0\SqlQuest.Api.genruntimeconfig.cache
 C:\Workspace\Portfolio\SQLQuest\src\SqlQuest.Api\obj\Debug\net8.0\ref\SqlQuest.Api.dll
+C:\Workspace\Portfolio\SQLQuest\src\SqlQuest.Api\obj\Debug\net8.0\SqlQuest.Api.sourcelink.json

@@ -12,10 +12,23 @@ builder.Services.AddDbContext<SqlQuestDbContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlQuestDb")));
 builder.Services.AddScoped<SqlEvaluatorService>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
+
+app.UseCors(); // ⬅️ isso aqui é essencial
 
 app.UseSwagger();
 app.UseSwaggerUI();
+
 
 // Seeding
 await using (var scope = app.Services.CreateAsyncScope())
