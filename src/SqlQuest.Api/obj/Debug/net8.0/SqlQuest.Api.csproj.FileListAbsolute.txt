@@ -192,3 +192,5 @@ C:\Workspace\Portfolio\SQLQuest\src\SqlQuest.Api\obj\Debug\net8.0\SqlQuest.Api.p
 C:\Workspace\Portfolio\SQLQuest\src\SqlQuest.Api\obj\Debug\net8.0\SqlQuest.Api.genruntimeconfig.cache
 C:\Workspace\Portfolio\SQLQuest\src\SqlQuest.Api\obj\Debug\net8.0\ref\SqlQuest.Api.dll
 C:\Workspace\Portfolio\SQLQuest\src\SqlQuest.Api\obj\Debug\net8.0\SqlQuest.Api.sourcelink.json
+C:\Workspace\Portfolio\SQLQuest\src\SqlQuest.Api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Workspace\Portfolio\SQLQuest\src\SqlQuest.Api\bin\Debug\net8.0\Microsoft.Bcl.Memory.dll

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SqlQuest.Api.Data;
 
@@ -11,9 +12,11 @@ using SqlQuest.Api.Data;
 namespace SqlQuest.Api.Migrations
 {
     [DbContext(typeof(SqlQuestDbContext))]
-    partial class SqlQuestDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250424002116_Day3_Auth_1")]
+    partial class Day3_Auth_1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

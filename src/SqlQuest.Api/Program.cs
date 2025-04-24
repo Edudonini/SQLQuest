@@ -1,8 +1,11 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration.UserSecrets;
 using SqlQuest.Api.Data;
 using SqlQuest.Api.DTOs;
 using SqlQuest.Api.Models;
 using SqlQuest.Api.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +14,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<SqlQuestDbContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlQuestDb")));
 builder.Services.AddScoped<SqlEvaluatorService>();
+builder.Services.AddScoped<AuthService>();
 
 builder.Services.AddCors(options =>
 {
@@ -21,6 +25,8 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 });
+
+builder.Services.AddAuthentication().AddJwtBearer();
 
 var app = builder.Build();
 
@@ -77,6 +83,38 @@ app.MapPost("/api/attempt", async (
 
     var result = await evaluator.EvaluateAsync(challenge, req.UserSql);
     return Results.Ok(result);
+});
+
+app.MapPost("/api/auth/register", async (UserDto dto, AuthService svc, SqlQuestDbContext db) =>
+{
+    if(db.Users.Any(u => u.UserName == dto.UserName)) return Results.BadRequest("Usuário existente");
+    svc.CreatePasswordHash(dto.Password, out var hash, out var salt);
+    var user = new User { UserName = dto.UserName, PasswordHash = hash, PasswordSalt = salt};
+    db.Users.Add(user); await db.SaveChangesAsync();
+    return Results.Ok(new { token = svc.Token(user)});
+});
+
+app.MapPost("/api/auth/login", async (UserDto dto, AuthService auth, SqlQuestDbContext db) =>
+{
+    var user = await db.Users.FirstOrDefaultAsync(u => u.UserName == dto.UserName);
+    if (user is null || !auth.Verify(dto.Password, user.PasswordHash, user.PasswordSalt))
+        return Results.Unauthorized();
+
+    var token = auth.Token(user);
+    return Results.Ok(new { token });
+});
+
+app.MapPost("/api/progress", async (ProgressDto dto, SqlQuestDbContext db) =>
+{
+    db.UserProgresses.Add(new UserProgress
+    {
+        UserId = dto.UserId,
+        ChallengeId = dto.ChallengeId,
+        Passed = dto.Passed,
+        AttemptedAt = DateTime.UtcNow
+    });
+    await db.SaveChangesAsync();
+    return Results.Ok();
 });
 
 app.Run();
